@@ -27,7 +27,6 @@
     "url": "https://github.com/Kenzitron/protractor-jasmine2-html-reporter/issues"
   },
   "dependencies": {
-    "hat": "0.0.3",
     "lodash": "^3.0.0",
     "mkdirp": "^0.5.0",
     "string.prototype.startswith": "^0.2.0"

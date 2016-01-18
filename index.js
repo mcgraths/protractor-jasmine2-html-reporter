@@ -1,14 +1,16 @@
 var fs     = require('fs'),
     mkdirp = require('mkdirp'),
     _      = require('lodash'),
-    path   = require('path'),
-    hat    = require('hat');
+    path   = require('path');
 
 require('string.prototype.startswith');
 
 var UNDEFINED, exportObject = exports;
 
-
+var sanitizeFilename = function(name) {
+    name = name.replace(/\s+/gi, '-'); // Replace white space with dash
+    return name.replace(/[^a-zA-Z0-9\-]/gi, ''); // Strip any special charactere
+}
 function trim(str) { return str.replace(/^\s+/, "" ).replace(/\s+$/, "" ); }
 function elapsed(start, end) { return (end - start)/1000; }
 function isFailed(obj) { return obj.status === "failed"; }
@@ -149,7 +151,7 @@ function Jasmine2HTMLReporter(options) {
         //Take screenshots taking care of the configuration
         if ((self.takeScreenshots && !self.takeScreenshotsOnlyOnFailures) ||
             (self.takeScreenshots && self.takeScreenshotsOnlyOnFailures && isFailed(spec))) {
-            spec.screenshot = hat() + '.png';
+            spec.screenshot = sanitizeFilename(spec.description) + '.png';
             browser.takeScreenshot().then(function (png) {
                 browser.getCapabilities().then(function (capabilities) {
                     var screenshotPath;
