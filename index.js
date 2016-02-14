@@ -151,7 +151,7 @@ function Jasmine2HTMLReporter(options) {
         //Take screenshots taking care of the configuration
         if ((self.takeScreenshots && !self.takeScreenshotsOnlyOnFailures) ||
             (self.takeScreenshots && self.takeScreenshotsOnlyOnFailures && isFailed(spec))) {
-            spec.screenshot = sanitizeFilename(spec.description) + '.png';
+            spec.screenshot = sanitizeFilename(spec._suite.description + '-' + spec.description) + '.png';
             browser.takeScreenshot().then(function (png) {
                 browser.getCapabilities().then(function (capabilities) {
                     var screenshotPath;
